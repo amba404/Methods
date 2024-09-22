@@ -53,37 +53,34 @@ public class Main {
 
     private static void printClientPhoneMessage(int clientOS, int clientDeviceYear) {
         int tooOldPhone = 2015;
-        switch (clientOS) {
-            case 0:
-                System.out.printf("Установите %sверсию приложения для iOS по ссылке\n",
-                        clientDeviceYear <= tooOldPhone ? "облегченную " : "");
-                break;
-            case 1:
-                System.out.printf("Установите %sверсию приложения для Android по ссылке\n",
-                        clientDeviceYear <= tooOldPhone ? "облегченную " : "");
-                break;
-        }
+        System.out.printf("Установите %sверсию приложения для %s по ссылке\n",
+                clientDeviceYear <= tooOldPhone ? "облегченную " : "", getNameOs(clientOS)
+        );
+    }
+
+    private static String getNameOs(int clientOS) {
+        String result = switch (clientOS) {
+            case 0 -> "iOS";
+            case 1 -> "Android";
+            default -> "unknown";
+        };
+
+        return result;
     }
 
     private static void printCheckLeapYear(int year) {
 
-        boolean isLeapYear;
-
-        if (year < 1584) {
-            isLeapYear = false;
-        } else if (year % 400 == 0) {
-            isLeapYear = true;
-        } else if (year % 100 == 0) {
-            isLeapYear = false;
-        } else isLeapYear = year % 4 == 0;
-
-        if (isLeapYear) {
+        if (isLeapYear(year)) {
             System.out.printf("%d год является високосным", year);
         } else {
             System.out.printf("%d год не является високосным", year);
         }
 
         System.out.println();
+    }
+
+    private static boolean isLeapYear(int year) {
+        return (year >= 1584 && year % 4 == 0 && year % 100 != 0 || year % 400 == 0);
     }
 
     private static void printTaskTitle(int taskNumber) {
