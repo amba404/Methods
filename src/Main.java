@@ -32,6 +32,8 @@ public class Main {
 
     private static int getDeliveryDays(int deliveryDistance) {
 
+        if(deliveryDistance < 0) throw new IllegalArgumentException("Дистанция меньше нуля");
+
         int deliveryDays;
 
         if (deliveryDistance > 100) {
